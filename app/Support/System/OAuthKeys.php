@@ -47,7 +47,7 @@ class OAuthKeys
     public static function generateKeys(): void
     {
         Artisan::registerCommand(new KeysCommand());
-        Artisan::call('firefly-iii:laravel-passport-keys');
+        Artisan::call('passport:keys', ['--no-interaction' => true]);
     }
 
     public static function hasKeyFiles(): bool

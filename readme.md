@@ -35,6 +35,7 @@
 - [Who's it for?](#whos-it-for)
 - [The Firefly III eco-system](#the-firefly-iii-eco-system)
 - [Getting Started](#getting-started)
+- [Local Development and Deployment](#local-development-and-deployment)
 - [Contributing](#contributing)
 - [Support the development of Firefly III](#support-the-development-of-firefly-iii)
 - [License](#license)
@@ -122,6 +123,52 @@ There are many ways to run Firefly III
 7. You can [install it on Cloudron](https://cloudron.io/store/org.fireflyiii.cloudronapp.html).
 8. You can [install it on Lando](https://gist.github.com/ArtisKrumins/ccb24f31d6d4872b57e7c9343a9d1bf0).
 9. You can [install it on Yunohost](https://github.com/YunoHost-Apps/firefly-iii).
+
+## Local Development and Deployment
+
+For developers looking to set up Firefly III locally for development or testing:
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/firefly-iii/firefly-iii.git
+   cd firefly-iii
+   ```
+
+2. **Install PHP dependencies**:
+   ```bash
+   composer install
+   ```
+
+3. **Set up environment**:
+   - Copy `.env.example` to `.env`
+   - Generate app key: `php artisan key:generate`
+   - Configure database (SQLite recommended for local dev): Set `DB_CONNECTION=sqlite` and `DB_DATABASE=database/database.sqlite`
+
+4. **Set up database**:
+   ```bash
+   php artisan migrate
+   php artisan db:seed
+   ```
+
+5. **Install frontend dependencies**:
+   ```bash
+   cd resources/assets/v2
+   npm install
+   npm run build
+   ```
+
+6. **Create admin user** (optional, for testing):
+   - Email: `admin@example.com`
+   - Password: `1234`
+   - Or create via tinker: `php artisan tinker` then `User::create(['email'=>'admin@example.com', 'password'=>\Hash::make('1234')]);`
+
+7. **Run the application**:
+   ```bash
+   php artisan serve
+   ```
+   Access at `http://localhost:8000` and log in with the admin credentials.
+
+For more details, see the [official documentation](https://docs.firefly-iii.org/).
 
 ## Contributing
 
